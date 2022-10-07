@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:netflix/modules/usuario/models/usuario_models.dart';
-import 'package:netflix/modules/usuario/repositories/datasource/datasource_ds.dart';
 import 'package:netflix/modules/usuario/repositories/usuario_repositorie.dart';
 
 class LoginController extends ChangeNotifier {

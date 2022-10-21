@@ -63,9 +63,11 @@ class _LoginPageState extends State<LoginPage> {
               cortxt: Colors.white,
               texto: "Entrar",
               aoClicar: () {
-                _controller.entrarOnPressed(sucesso: () {
-                  final rota =
-                      MaterialPageRoute(builder: (context) => const HomePage());
+                _controller.entrarOnPressed(sucesso: (usuarioLogado) {
+                  final rota = MaterialPageRoute(
+                      builder: (context) => HomePage(
+                            usuario: usuarioLogado,
+                          ));
                   Navigator.of(context).pushReplacement(rota);
                   MotionToast.success(
                     title: const Text(

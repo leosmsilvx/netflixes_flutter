@@ -1,7 +1,17 @@
+import 'package:netflix/modules/usuario/models/usuario_models.dart';
 import 'package:netflix/modules/usuario/repositories/datasource/datasource_ds.dart';
 
 class MemoriaDataSource extends DataSourceBase {
   static List<Map<String, dynamic>> tabelaUser = [];
+
+  static void init() {
+    for (var i = 0; i < 100; i++) {
+      var usu = UsuarioModel(
+          email: 'email$i@exemplo.com', nome: 'Fulano $i', senha: 's$i');
+      tabelaUser.add(usu.toMap());
+    }
+  }
+
   @override
   Future<void> alterar(Map<String, dynamic> usuario) async {
     for (var i = 0; i < tabelaUser.length; i++) {

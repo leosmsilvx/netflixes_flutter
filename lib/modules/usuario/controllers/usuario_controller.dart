@@ -8,17 +8,21 @@ class UsuarioController extends ChangeNotifier {
   final email = TextEditingController();
   final _repository = UsuarioRepositorie();
 
-  void salvarOnPressed({
-    required VoidCallback sucesso,
-    required VoidCallback? Function(String motivo) falha,
-  }) async {
+  void salvarOnPressed(
+      {required VoidCallback sucesso,
+      required VoidCallback? Function(String motivo) falha,
+      bool alteracao = false}) async {
     try {
       final usuario = UsuarioModel(
         nome: nome.text,
         senha: senha.text,
         email: email.text,
       );
-      await _repository.incluir(usuario);
+      if (!alteracao) {
+        await _repository.incluir(usuario);
+      } else {
+        await _repository.alterar(usuario);
+      }
 
       sucesso();
     } catch (e) {

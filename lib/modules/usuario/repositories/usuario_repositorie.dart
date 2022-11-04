@@ -34,6 +34,6 @@ class UsuarioRepositorie {
       final usuario = UsuarioModel.fromMap(map);
       retorno.add(usuario);
     }
-    return <UsuarioModel>[];
+    return retorno;
   }
 }

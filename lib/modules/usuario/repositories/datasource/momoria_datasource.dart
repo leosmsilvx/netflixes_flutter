@@ -25,7 +25,7 @@ class MemoriaDataSource extends DataSourceBase {
 
   @override
   Future<void> excluir(Map<String, dynamic> usuario) async {
-    tabelaUser.remove(usuario);
+    tabelaUser.removeWhere((element) => element['email'] == usuario['email']);
   }
 
   @override

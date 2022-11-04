@@ -17,4 +17,14 @@ class HomeController extends ChangeNotifier {
         .selecionarTodos()
         .then((value) => usuarioDataSource = value);
   }
+
+  void excluirOnPressed(
+      UsuarioModel usuario, VoidCallback sucesso, VoidCallback erro) async {
+    try {
+      _usuarioRepositorie.excluir(usuario);
+      sucesso();
+    } catch (e) {
+      erro();
+    }
+  }
 }

@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:motion_toast/resources/arrays.dart';
 import 'package:netflix/modules/usuario/controllers/usuario_controller.dart';
+import 'package:netflix/modules/usuario/models/usuario_models.dart';
 import 'package:netflix/shared/components/botao/botaoSFundo.dart';
 import 'package:netflix/shared/components/campo_formulario/campoForm.dart';
 import 'package:netflix/shared/components/botao/botaoForm.dart';
 
 class UsuarioPage extends StatefulWidget {
-  const UsuarioPage({Key? key}) : super(key: key);
+  final UsuarioModel? current;
+  const UsuarioPage({Key? key, this.current}) : super(key: key);
 
   @override
   State<UsuarioPage> createState() => _UsuarioPageState();
@@ -15,6 +17,17 @@ class UsuarioPage extends StatefulWidget {
 
 class _UsuarioPageState extends State<UsuarioPage> {
   final _controller = UsuarioController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.current != null) {
+      _controller.email.text = widget.current!.email ?? '';
+      _controller.senha.text = widget.current!.senha ?? '';
+      _controller.nome.text = widget.current!.nome ?? '';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,29 +75,32 @@ class _UsuarioPageState extends State<UsuarioPage> {
               padding: const EdgeInsets.fromLTRB(200, 0, 200, 20),
               child: BotaoForm(
                   corfundo: Colors.red,
-                  texto: "Cadastrar",
+                  texto: "Salvar",
                   aoClicar: () {
-                    _controller.salvarOnPressed(sucesso: () {
-                      Navigator.of(context).pop();
-                      MotionToast.success(
-                        title: const Text(
-                          'Sucesso!',
-                        ),
-                        description: const Text(
-                            'Seu cadastro foi concluído com sucesso.'),
-                        animationType: AnimationType.fromLeft,
-                        position: MotionToastPosition.top,
-                        dismissable: true,
-                      ).show(context);
-                    }, falha: ((motivo) {
-                      MotionToast.error(
-                        title: const Text("Falha!"),
-                        description: Text(motivo),
-                        width: 500,
-                        position: MotionToastPosition.top,
-                        animationType: AnimationType.fromLeft,
-                      ).show(context);
-                    }));
+                    _controller.salvarOnPressed(
+                        sucesso: () {
+                          Navigator.of(context).pop();
+                          MotionToast.success(
+                            title: const Text(
+                              'Sucesso!',
+                            ),
+                            description: const Text(
+                                'Seu cadastro foi concluído com sucesso.'),
+                            animationType: AnimationType.fromLeft,
+                            position: MotionToastPosition.top,
+                            dismissable: true,
+                          ).show(context);
+                        },
+                        falha: ((motivo) {
+                          MotionToast.error(
+                            title: const Text("Falha!"),
+                            description: Text(motivo),
+                            width: 500,
+                            position: MotionToastPosition.top,
+                            animationType: AnimationType.fromLeft,
+                          ).show(context);
+                        }),
+                        alteracao: widget.current != null);
                   }),
             ),
 

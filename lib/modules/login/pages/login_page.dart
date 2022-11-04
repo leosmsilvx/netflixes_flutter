@@ -92,17 +92,18 @@ class _LoginPageState extends State<LoginPage> {
           ),
 
           //TEXTO CRIAR CONTA
-          Padding(
-              padding: const EdgeInsets.fromLTRB(200, 0, 200, 20),
-              child: BotaoSFundo(
-                cortxt: Colors.white70,
-                texto: "Criar conta",
-                aoClicar: () {
-                  final rota = MaterialPageRoute(
-                      builder: (context) => const UsuarioPage());
-                  Navigator.of(context).push(rota);
-                },
-              ))
+          Align(
+            alignment: Alignment.topCenter,
+            child: BotaoSFundo(
+              cortxt: Colors.white70,
+              texto: "Criar conta",
+              aoClicar: () {
+                final rota = MaterialPageRoute(
+                    builder: (context) => const UsuarioPage());
+                Navigator.of(context).push(rota);
+              },
+            ),
+          )
         ]));
   }
 }
